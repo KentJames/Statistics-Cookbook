@@ -22,23 +22,18 @@ let dependencies = rec {
       ipykernel
       ipywidgets
       # Custom packages
-#     bokeh
-#     cloudpickle
-#      cython
-#      dill
- #     lightning
       matplotlib
       numba
       numpy
-#      pandas
-#     patsy
-#      pillow
-#     scikitimage
-#     scikitlearn
-#      scipy
-#      seaborn
-#     statsmodels
-#     sympy
+      pandas
+      patsy
+      pillow
+      scikitimage
+      scikitlearn
+      scipy
+ #     seaborn
+ #     statsmodels
+ #     sympy
     ];
   };
   python35_kernel = stdenv.mkDerivation rec {
@@ -53,7 +48,7 @@ let dependencies = rec {
     };
     inherit builder;
   };
- /* haskell_kernel = stdenv.mkDerivation rec {
+  haskell_kernel = stdenv.mkDerivation rec {
     name = "haskell";
     buildInputs = [ ihaskell ];
     json = builtins.toJSON {
@@ -67,12 +62,12 @@ let dependencies = rec {
     builder = writeText "builder.sh" ''
       source $stdenv/setup
       mkdir -p $out
-      ln -s ${ihaskell}/share/*ghc*//*ihaskell*//*html/* $out
+      ln -s ${ihaskell}/share/*ghc*/ihaskell/*html/* $out
       cat > $out/kernel.json << EOF
       $json
       EOF
     '';
-  }; */
+  }; 
   R = rWrapper.override {
     packages = with rPackages; [
       # Kernel
@@ -101,20 +96,20 @@ let dependencies = rec {
     name = "jupyter";
     buildInputs = [
       python35_kernel
- #     haskell_kernel
+      haskell_kernel
       R_kernel
     ];
     builder = writeText "builder.sh" ''
       source $stdenv/setup
       mkdir -p $out/etc/jupyter/kernels $out/etc/jupyter/migrated
       ln -s ${python35_kernel} $out/etc/jupyter/kernels/${python35_kernel.name}
-
+      ln -s ${haskell_kernel} $out/etc/jupyter/kernels/${haskell_kernel.name} 
       ln -s ${R_kernel} $out/etc/jupyter/kernels/${R_kernel.name}
       cat > $out/etc/jupyter/jupyter_notebook_config.py << EOF
       import os
       c.KernelSpecManager.whitelist = {
         '${python35_kernel.name}',
-
+        '${haskell_kernel.name}',
         '${R_kernel.name}'
       }
       EOF
