@@ -8,15 +8,18 @@ This should run in a jupyter notebook with the standard python kernel, as well a
 
 To run with all kernels(R and python for now):
 
-`nix-shell jupyter-all.nix`
+`nix-shell jupyter-all.nix
+jupyter notebook`
 
 R Notebook:
 
-`nix-shell jupyter-r.nix`
+`nix-shell jupyter-r.nix
+jupyter notebook`
 
 Standard Python Notebook:
 
-`nix-shell`
+`nix-shell
+jupyter notebook`
 
 
 
