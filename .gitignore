@@ -32,7 +32,7 @@
 # Jupyter Directory
 
 /.jupyter
-
+*.ipynb_checkpoints*
 # OS generated files #
 ######################
 .DS_Store
