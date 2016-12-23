@@ -7,33 +7,23 @@ let dependencies = rec {
     $json
     EOF
   '';
-  /*jupyter = python35Packages.notebook.override {
-    postInstall = with python35Packages; ''
-      mkdir -p $out/bin
-      ln -s ${jupyter_core}/bin/jupyter $out/bin
-      wrapProgram $out/bin/jupyter \
-        --prefix PYTHONPATH : "${notebook}/lib/python3.5/site-packages:$PYTHONPATH" \
-        --prefix PATH : "${notebook}/bin:$PATH"
-    '';
-  };*/
+
+# Cython build is non-functional on macOS currently.
   python35 = pkgs.python35.buildEnv.override {
     extraLibs = with python35Packages; [
       # Kernel
       ipykernel
       ipywidgets
       # Custom packages
+#     cython
       matplotlib
       numba
       numpy
-      pandas
-      patsy
-      pillow
-      scikitimage
-      scikitlearn
+#      pandas
+      pyfftw
+#      scikitimage
+#      scikitlearn
       scipy
- #     seaborn
- #     statsmodels
- #     sympy
     ];
   };
   python35_kernel = stdenv.mkDerivation rec {
@@ -48,7 +38,12 @@ let dependencies = rec {
     };
     inherit builder;
   };
-  haskell_kernel = stdenv.mkDerivation rec {
+
+
+
+
+#Haskell Kernel will not build on macOS currently. Trying to work out why. 
+/*  haskell_kernel = stdenv.mkDerivation rec {
     name = "haskell";
     buildInputs = [ ihaskell ];
     json = builtins.toJSON {
@@ -62,12 +57,12 @@ let dependencies = rec {
     builder = writeText "builder.sh" ''
       source $stdenv/setup
       mkdir -p $out
-      ln -s ${ihaskell}/share/*ghc*/ihaskell/*html/* $out
+      ln -s ${ihaskell}/share/*ghc*//*ihaskell*//*html/* $out
       cat > $out/kernel.json << EOF
       $json
       EOF
     '';
-  }; 
+  }; */
   R = rWrapper.override {
     packages = with rPackages; [
       # Kernel
@@ -78,6 +73,7 @@ let dependencies = rec {
       # Custom packages
       tm
       wordcloud
+      LearnBayes
     ];
   };
   R_kernel = stdenv.mkDerivation rec {
@@ -96,20 +92,20 @@ let dependencies = rec {
     name = "jupyter";
     buildInputs = [
       python35_kernel
-      haskell_kernel
+  #    haskell_kernel
       R_kernel
     ];
     builder = writeText "builder.sh" ''
       source $stdenv/setup
       mkdir -p $out/etc/jupyter/kernels $out/etc/jupyter/migrated
       ln -s ${python35_kernel} $out/etc/jupyter/kernels/${python35_kernel.name}
-      ln -s ${haskell_kernel} $out/etc/jupyter/kernels/${haskell_kernel.name} 
+
       ln -s ${R_kernel} $out/etc/jupyter/kernels/${R_kernel.name}
       cat > $out/etc/jupyter/jupyter_notebook_config.py << EOF
       import os
       c.KernelSpecManager.whitelist = {
         '${python35_kernel.name}',
-        '${haskell_kernel.name}',
+
         '${R_kernel.name}'
       }
       EOF
@@ -121,10 +117,8 @@ let dependencies = rec {
 in with dependencies;
 stdenv.mkDerivation rec {
   name = "jupyter";
-  #env = buildEnv { name = name; paths = buildInputs; };
-  #builder = builtins.toFile "builder.sh" ''
-  #  source $stdenv/setup; ln -s $env $out
-  #'';
+  env = buildEnv { name = name; paths = buildInputs; };
+
   buildInputs = [
     python35Packages.jupyter
     jupyter_config_dir
