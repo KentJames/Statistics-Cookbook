@@ -29,6 +29,7 @@ let dependencies = rec {
   python35_kernel = stdenv.mkDerivation rec {
     name = "python35";
     buildInputs = [ python35 ];
+    enableParallelBuilding = true;
     json = builtins.toJSON {
       argv = [ "${python35}/bin/python3.5"
                "-m" "ipykernel" "-f" "{connection_file}" ];
@@ -43,6 +44,7 @@ let dependencies = rec {
 
 
 #Haskell Kernel will not build on macOS currently. Trying to work out why. 
+#Update. Looks like an upstream issue with ihaskell. The ghc-parser build fails specifically.
 /*  haskell_kernel = stdenv.mkDerivation rec {
     name = "haskell";
     buildInputs = [ ihaskell ];
@@ -79,6 +81,7 @@ let dependencies = rec {
   R_kernel = stdenv.mkDerivation rec {
     name = "ir";
     buildInputs = [ R ];
+    enableParallelBuilding = true;
     json = builtins.toJSON {
       argv = [ "${R}/bin/R"
                "--slave" "-e" "IRkernel::main()"
@@ -123,6 +126,7 @@ stdenv.mkDerivation rec {
     python35Packages.jupyter
     jupyter_config_dir
   ];
+  enableParallelBuilding = true;
   shellHook = ''
     mkdir -p $PWD/.jupyter
     export JUPYTER_CONFIG_DIR=${jupyter_config_dir}/etc/jupyter
