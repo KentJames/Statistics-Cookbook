@@ -34,7 +34,7 @@ As I add more things this will change. Would like to look at stuff such as conju
 
 ## Contributions
 
-I'd greatly appreciate insight from statisticians/data scientists, as well as any contributions of worked examples from various areas would extremely interesting! I prefer to use raw numpy as much as possible so as not to obfuscate what is going on.
+I'd greatly appreciate insight from statisticians/data scientists, as well as any contributions of worked examples from various areas, which would be extremely interesting! I prefer to use raw numpy as much as possible so as not to obfuscate what is going on. The idea is not to be _fast_ (which is another topic entirely) but to demonstrate. 
 
 Ultimately I'd like this to be an example led repository for people looking for cookbook statistics techniques, alongside another mathematical material to develop a strong inuitition and learn how data analysis works.
 
