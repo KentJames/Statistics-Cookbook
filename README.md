@@ -10,15 +10,21 @@ This is a collection of jupyter notebooks describing various topics in data scie
  - Bayes Formula
  - Introduction to distributions (TODO)
  - Basic linear regression stuff (TODO)
+ 
+ 
 2 - Linear analysis procedures to help understand data before modelling:
  |
   - Principal Component Analysis
   - Singular Value Decomposition (TODO)
   - Eigenvectors/quadrics (TODO)
+  
+  
 3 - Markov Chain Monte Carlo
  |
   - Metropolis Hastings
   - Simulated Annealing
+  
+  
 4 - Worked Examples
  |
   - Steve Gull's Famous Lighthouse Problem
