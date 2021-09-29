@@ -1,42 +1,33 @@
 ## Overview
 
-This is a collection of jupyter notebooks describing various topics in data science. It's a work in progress however it is my goal to describe some of the common procedures of working with datasets, including free-form analysis, numerical optimisation and fitting techniques such as MCMC, as well as other topics of interest.
+This is a collection of jupyter notebooks describing introductory topics in statistics in data science, such as basic probability distributions, the difference between Bayesian and Frequentist statistics, and some links with optimisation of functions.
+
+A worked example is included for locating a lighthouse in a Bayesian manner with a Markov Chain Monte Carlo method.
 
 ## Contents Page
 
-(This will change)
-
 1 - Introduction to basic probability and statistical conventions and concepts.
- - Bayes Formula
- - Introduction to distributions (TODO)
- - Basic linear regression stuff (TODO)
+ |
+ - Mode vs Median vs Mean
+ - Variance
+ - Correlation
+ - Linear Regression
  
  
-2 - Linear analysis procedures to help understand data before modelling:
+2 - Probability Distributions
  |
-  - Principal Component Analysis
-  - Singular Value Decomposition (TODO)
-  - Eigenvectors/quadrics (TODO)
+  - Probability Distributions
+  - Frequentist vs Bayesian Statistics
   
-  
-3 - Markov Chain Monte Carlo
- |
-  - Metropolis Hastings
-  - Simulated Annealing
-  
-  
-4 - Worked Examples
- |
-  - Steve Gull's Famous Lighthouse Problem
+3 - Component Analysis
 
-As I add more things this will change. Would like to look at stuff such as conjugate gradient techniques, nested sampling, hierarchical modelling and clustering etc etc. 
+4 - Markov Chain Monte Carlo
 
+5 - Clustering Data
 
-## Contributions
+6 - Optimisation
 
-I'd greatly appreciate insight from statisticians/data scientists, as well as any contributions of worked examples from various areas, which would be extremely interesting! I prefer to use raw numpy as much as possible so as not to obfuscate what is going on. The idea is not to be _fast_ (which is another topic entirely) but to demonstrate. 
-
-Ultimately I'd like this to be an example led repository for people looking for cookbook statistics techniques, alongside another mathematical material to develop a strong inuitition and learn how data analysis works.
+7 - Worked Bayesian Example with the lighthouse problem.
 
 ## Dependency Installs
 
@@ -50,36 +41,6 @@ This should run with an out of the bag Jupyter install. I personally use brew, h
 By far the easiest way to get going and the _lingua franca_ of python package managers currently is conda:
 
 [Anaconda](https://www.anaconda.com)
-
-### Nix
-
-This should run in a jupyter notebook with the standard python kernel, as well as the R kernel. 
-
-You can install nix, and get a fully functioning build of jupyter up and running by following the instructions below. Nix is great, once you get over its steep learning curve. Alternatively you can configure the R kernel yourself manually.
-
-[Nix: The Purely Functional Package Manager](https://nixos.org/nix/)
-
-To run with all kernels(R and python for now):
-
-```
-nix-shell jupyter-all.nix
-jupyter notebook
-```
-
-R Notebook:
-
-```
-nix-shell jupyter-r.nix
-jupyter notebook
-```
-
-Standard Python Notebook:
-
-```
-nix-shell
-jupyter notebook
-```
-
 
 
 
